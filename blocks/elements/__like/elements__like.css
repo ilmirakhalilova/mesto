@@ -1,0 +1,14 @@
+.elements__like{
+  width: 22px;
+  height: 19px;
+  border: 0;
+  margin-right: 20px;
+  padding: 0;
+  background-color: white;
+  background-image: url(../../../images/elements_like.svg);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.elements__like:hover {
+    opacity: .6;
+}
