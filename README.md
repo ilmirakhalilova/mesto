@@ -1,5 +1,7 @@
 # Проект: Место
 
+https://ilmirakhalilova.github.io/mesto/
+
 ### Обзор
 * Описание
 * Инструменты и технологии
