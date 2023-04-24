@@ -3,7 +3,7 @@
   width: 100%;
   margin: 0 auto 40px;
   padding: 45px 0 41px;
-  border-bottom: 1px #545454 solid;
+  border-bottom: 1px rgba(54, 54, 54, .7) solid;
   box-sizing: border-box;
 }
 @media (max-width: 1023px){

@@ -25,4 +25,4 @@
 @import url(../blocks/profile/__name/profile__name.css);
 @import url(../blocks/profile/__naming/profile__naming.css);
 @import url(../blocks/profile/__status/profile__status.css);
-@import url(../fonts/fonts.css);
+@import url(../vendor/fonts/fonts.css);

@@ -9,6 +9,5 @@
   justify-content: center;
   z-index: 999;
   display: none;
-  visibility: hidden;
   background-color: rgba(0, 0, 0, 0.6);
 }
