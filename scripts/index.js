@@ -24,6 +24,6 @@ function handleFormSubmit (event) {
   event.preventDefault();
   personName.textContent = nameInput.value;
   personStatus.textContent = statusInput.value;
-  editPopup.classList.remove('popup_opened');
+  closeForm();
 }
 editPopupForm.addEventListener('submit', handleFormSubmit);

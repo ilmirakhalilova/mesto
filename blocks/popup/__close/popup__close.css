@@ -5,7 +5,7 @@
   font-size: 30px;
   cursor: pointer;
   background-image: url("../../../images/popup_close-icon.svg");
-  background-color: black;
+  background-color: rgba(0, 0, 0, 0);
   width: 32px;
   height: 32px;
   z-index: 1000;
