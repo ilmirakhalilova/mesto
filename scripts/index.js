@@ -50,6 +50,8 @@ function openFormForEdit () {
   openPopup(editPopup);
   nameInput.value = personName.textContent;
   statusInput.value = personStatus.textContent;
+  hideInputError (editPopupForm, nameInput, validationConfigs.inputErrorClass, validationConfigs.errorClass);
+  hideInputError (editPopupForm, statusInput, validationConfigs.inputErrorClass, validationConfigs.errorClass);
 }
 editPopupOpenButton.addEventListener('click', openFormForEdit);
 
