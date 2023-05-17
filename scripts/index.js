@@ -17,6 +17,8 @@ const addPopupForm = addPopup.querySelector('.popup__form');
 const addPopupCloseButton = addPopup.querySelector('.popup__close_add');
 const nameAdd = addPopup.querySelector('.popup__input_new_place');
 const linkAdd = addPopup.querySelector('.popup__input_link_place');
+const placeNameAdd = addPopup.querySelector('.popup__input_new_place');
+const linkPlaceAdd = addPopup.querySelector('.popup__input_link_place');
 
 //Темплейт с карточками
 const cardsTemplate = document.getElementById('cards-template');
@@ -67,6 +69,10 @@ editPopupForm.addEventListener('submit', handleEditFormSubmit);
 //Функции для формы добавления в галерею
 function openFormForAdd () {
   openPopup(addPopup);
+  placeNameAdd.value = "";
+  linkPlaceAdd.value = "";
+  hideInputError (addPopupForm, placeNameAdd, validationConfigs.inputErrorClass, validationConfigs.errorClass);
+  hideInputError (addPopupForm, linkPlaceAdd, validationConfigs.inputErrorClass, validationConfigs.errorClass);
   const buttonElement = addPopupForm.querySelector(validationConfigs.submitButtonSelector);
   disableSubmitButton (buttonElement, validationConfigs.inactiveButtonClass);
 }

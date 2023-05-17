@@ -16,11 +16,11 @@ const showInputError = (formElement, inputElement, errorMessage, opt) => {
 };
 
 //функция, которая удаляет класс с ошибкой
-const hideInputError = (formElement, inputElement, opt) => {
+const hideInputError = (formElement, inputElement, inputErrorClass, errorClass) => {
   const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
-  inputElement.classList.remove(opt.inputErrorClass);
+  inputElement.classList.remove(inputErrorClass);
   errorElement.textContent = '';
-  errorElement.classList.remove(opt.errorClass);
+  errorElement.classList.remove(errorClass);
 };
 
 //функция, которая проверяет валидность поля
@@ -28,7 +28,7 @@ const isValid = (formElement, inputElement, opt) => {
   if(!inputElement.validity.valid) {
     showInputError(formElement, inputElement, inputElement.validationMessage, opt);
   } else {
-    hideInputError(formElement, inputElement, opt);
+    hideInputError(formElement, inputElement, opt.inputErrorClass, opt.errorClass);
   }
 };
 
