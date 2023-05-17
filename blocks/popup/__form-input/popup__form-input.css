@@ -1,0 +1,12 @@
+.popup__form-input {
+  max-width: 358px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 13px;
+  padding: 0;
+  min-height: 50px;
+}
+
+.popup__form-input:last-of-type {
+    margin-bottom: 0;
+}

@@ -1,4 +1,5 @@
 //ПЕРЕМЕННЫЕ
+const popups = document.querySelectorAll('.popup');
 //Попап редактирование профиля
 const editPopupOpenButton = document.querySelector('.profile__edit-button');
 const editPopup = document.querySelector('.popup_edit');
@@ -34,10 +35,12 @@ const imagePopupCloseButton = popupImage.querySelector('.popup__close_image');
     // Открытие поп-апов
 function openPopup(popup) {
   popup.classList.add('popup_opened');
+  document.addEventListener('keydown', closeByEsc);
 }
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closeByEsc);
 }
 
 //Функции для формы редактирования профиля
@@ -127,3 +130,22 @@ initialCards.forEach((card) => {
   const element = createCard(card);
   cardsContainer.prepend(element);
 });
+
+
+//закрытие popup'а по клавише esc
+function closeByEsc(evt) {
+  if (evt.key === 'Escape') {
+    const openedPopup = document.querySelector('.popup_opened');
+    closePopup(openedPopup);
+  }
+}
+
+//навешивание листенеров на все popup'ы
+popups.forEach((p) => {
+  p.addEventListener('click', (evt) => {
+    if (evt.target.classList.contains('popup_opened')) {
+      const popup = evt.target.closest('.popup');
+      closePopup(popup);
+    }
+  })
+})
