@@ -36,11 +36,11 @@ const isValid = (formElement, inputElement, opt) => {
 const setEventListeners = (formElement, opt) => {
   const inputList = Array.from(formElement.querySelectorAll(opt.inputSelector));
   const buttonElement = formElement.querySelector(opt.submitButtonSelector);
-  toggleButtonState(inputList, buttonElement, opt);
+  toggleButtonState(inputList, buttonElement, opt.inactiveButtonClass);
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', () => {
       isValid(formElement, inputElement, opt);
-      toggleButtonState(inputList, buttonElement, opt);
+      toggleButtonState(inputList, buttonElement, opt.inactiveButtonClass);
     });
   });
 };
@@ -60,14 +60,24 @@ const hasInvalidInput = (inputList) => {
   });
 };
 
+//функция отключения кнопки
+const disableSubmitButton = (buttonElement, inactiveButtonClass) => {
+  buttonElement.setAttribute('disabled', true);
+  buttonElement.classList.add(inactiveButtonClass);
+}
+
+//функция активации кнопки
+const enableSubmitButton = (buttonElement, inactiveButtonClass) => {
+  buttonElement.removeAttribute('disabled');
+  buttonElement.classList.remove(inactiveButtonClass);
+}
+
 //функция стилизации кнопки
-const toggleButtonState = (inputList, buttonElement, opt) => {
+const toggleButtonState = (inputList, buttonElement, inactiveButtonClass) => {
   if (hasInvalidInput(inputList)) {
-    buttonElement.setAttribute('disabled', true);
-    buttonElement.classList.add(opt.inactiveButtonClass);
+    disableSubmitButton (buttonElement, inactiveButtonClass);
   } else {
-    buttonElement.removeAttribute('disabled');
-    buttonElement.classList.remove(opt.inactiveButtonClass);
+    enableSubmitButton (buttonElement, inactiveButtonClass);
   }
 };
 

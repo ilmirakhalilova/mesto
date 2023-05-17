@@ -54,11 +54,11 @@
     <h3 class="popup__name">Новое место</h3>
     <form class="popup__form" name="profile-form" novalidate>
       <div class="popup__form-input">
-        <input id="place-name" name="place-name" class="popup__input popup__input_new_place" type="text" placeholder="Название" pattern="^[а-яА-ЯёЁ -]+$" minlength="2" maxlength="30" required/>
+        <input id="place-name" name="place-name" class="popup__input popup__input_new_place" type="text" placeholder="Название" pattern="^[а-яА-ЯёЁ -]+$" minlength="2" maxlength="30" value="" required/>
         <span id="place-name-error" class="popup__message"></span>
       </div>
       <div class="popup__form-input">
-        <input id="link-place" name="link-place" class="popup__input popup__input_link_place" type="url" placeholder="Ссылка на картинку" required/>
+        <input id="link-place" name="link-place" class="popup__input popup__input_link_place" type="url" placeholder="Ссылка на картинку" value="" required/>
         <span id="link-place-error" class="popup__message"></span>
       </div>
       <button class="popup__submit" type="submit">Создать</button>
