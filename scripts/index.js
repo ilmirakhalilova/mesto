@@ -67,6 +67,7 @@ editPopupForm.addEventListener('submit', handleEditFormSubmit);
 //Функции для формы добавления в галерею
 function openFormForAdd () {
   openPopup(addPopup);
+  enableValidation(validationConfigs);
 }
 addButtonLink.addEventListener('click', openFormForAdd);
 

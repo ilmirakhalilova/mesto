@@ -4,9 +4,15 @@
   flex-direction: column;
   margin-bottom: 13px;
   padding: 0;
-  min-height: 50px;
+  min-height: 61px;
 }
 
 .popup__form-input:last-of-type {
     margin-bottom: 0;
+}
+
+@media (max-width: 768px){
+  .popup__form-input{
+    min-height: 76px;
+  }
 }
