@@ -57,12 +57,6 @@ export class Card{
   //кнопка удаления
   _handleDelete() {
     this._element.remove();
-
-    /*this._element = null;
-    this._cardImg = null;
-    this._cardTitle = null;
-    this._likeButton = null;
-    this._deleteButton = null;*/
   };
 
   //попап большой картинки

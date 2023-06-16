@@ -1,4 +1,5 @@
 import {initialCards, Card} from './Card.js';
+import FormValidator from './FormValidator.js';
 
 //ПЕРЕМЕННЫЕ
 const popups = document.querySelectorAll('.popup');
@@ -23,14 +24,14 @@ const placeNameAdd = addPopup.querySelector('.popup__input_new_place');
 const linkPlaceAdd = addPopup.querySelector('.popup__input_link_place');
 
 //Темплейт с карточками
-const cardsTemplate = document.getElementById('cards-template');
+//const cardsTemplate = document.getElementById('cards-template');
 //Галерея картинок
 const cardsContainer = document.querySelector('.elements');
 
 //Попап на открытие большой картинки
 const popupImage = document.querySelector('.popup_image');
-const image = document.querySelector('.popup__image');
-const imageCaption = document.querySelector('.popup__image-caption');
+//const image = document.querySelector('.popup__image');
+//const imageCaption = document.querySelector('.popup__image-caption');
 const imagePopupCloseButton = popupImage.querySelector('.popup__close_image');
 
 
@@ -52,8 +53,8 @@ function openFormForEdit () {
   openPopup(editPopup);
   nameInput.value = personName.textContent;
   statusInput.value = personStatus.textContent;
-  hideInputError (editPopupForm, nameInput, validationConfigs.inputErrorClass, validationConfigs.errorClass);
-  hideInputError (editPopupForm, statusInput, validationConfigs.inputErrorClass, validationConfigs.errorClass);
+  validatorProfile.hideInputError(nameInput, document.querySelector(`#name-error`));
+  validatorProfile.hideInputError(statusInput, document.querySelector(`#status-error`));
 }
 editPopupOpenButton.addEventListener('click', openFormForEdit);
 
@@ -70,23 +71,15 @@ function handleEditFormSubmit (event) {
 }
 editPopupForm.addEventListener('submit', handleEditFormSubmit);
 
-
-
-
-
-
-
-
-
 //Функции для формы добавления в галерею
 function openFormForAdd () {
   openPopup(addPopup);
   placeNameAdd.value = "";
   linkPlaceAdd.value = "";
-  hideInputError (addPopupForm, placeNameAdd, validationConfigs.inputErrorClass, validationConfigs.errorClass);
-  hideInputError (addPopupForm, linkPlaceAdd, validationConfigs.inputErrorClass, validationConfigs.errorClass);
-  const buttonElement = addPopupForm.querySelector(validationConfigs.submitButtonSelector);
-  disableSubmitButton (buttonElement, validationConfigs.inactiveButtonClass);
+
+  validatorNewCard.hideInputError (placeNameAdd, document.querySelector(`#place-name-error`));
+  validatorNewCard.hideInputError (linkPlaceAdd, document.querySelector(`#link-place-error`));
+  validatorNewCard.disableSubmitButton();
 }
 addButtonLink.addEventListener('click', openFormForAdd);
 
@@ -97,15 +90,11 @@ addPopupCloseButton.addEventListener('click', closeAddPopup);
 
 
 
-
-///////////////////////////////////////
-
-function createCard (item) {
+///////новые карточки
+const createCard = item => {
   const card = new Card(item, '.elements__card-template');
-  console.log(nameAdd.value + "  " + linkAdd.value);
-  return card;
+  return card.generateCard();
 }
-
 
 function createNewCard(event){
   event.preventDefault();
@@ -115,32 +104,20 @@ function createNewCard(event){
   };
 
   const cardElement = createCard(manuallCardData);
-  console.log(cardElement);
-
   cardsContainer.prepend(cardElement);
   closeAddPopup();
   addPopupForm.reset(); //очистка popup вроде
 };
 addPopupForm.addEventListener('submit',createNewCard);
 
-
-
-function closePopupImage (){
+imagePopupCloseButton.addEventListener('click', () => {
   closePopup(popupImage);
-};
-imagePopupCloseButton.addEventListener('click', closePopupImage);
-
-
-initialCards.forEach((item) => {
-  const card = createCard(item); //new Card(item, '.elements__card-template');
-  const cardElement = card.generateCard();
-  cardsContainer.prepend(cardElement);
 });
 
-/////////////////////////////////////////////
-
-
-
+initialCards.forEach((item) => {
+  const card = createCard(item);
+  cardsContainer.prepend(card);
+});
 
 
 
@@ -161,3 +138,21 @@ popups.forEach((p) => {
     }
   })
 })
+
+
+
+///////FormValidation
+const validationConfigs = {
+  //formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__submit',
+  inactiveButtonClass: 'popup__submit_inactive',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__message_input-error'
+}
+
+const validatorProfile = new FormValidator(validationConfigs, editPopupForm);
+validatorProfile.enableValidation();
+
+const validatorNewCard = new FormValidator(validationConfigs, addPopupForm);
+validatorNewCard.enableValidation();
