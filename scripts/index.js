@@ -1,4 +1,5 @@
-import {initialCards, Card} from './Card.js';
+import Card from './Card.js';
+import {initialCards, validationConfig} from './constants.js';
 import FormValidator from './FormValidator.js';
 
 //ПЕРЕМЕННЫЕ
@@ -53,8 +54,9 @@ function openFormForEdit () {
   openPopup(editPopup);
   nameInput.value = personName.textContent;
   statusInput.value = personStatus.textContent;
-  validatorProfile.hideInputError(nameInput, document.querySelector(`#name-error`));
-  validatorProfile.hideInputError(statusInput, document.querySelector(`#status-error`));
+  validatorProfile.resetErrors();
+  //validatorProfile.hideInputError(nameInput, document.querySelector(`#name-error`));
+  //validatorProfile.hideInputError(statusInput, document.querySelector(`#status-error`));
 }
 editPopupOpenButton.addEventListener('click', openFormForEdit);
 
@@ -74,11 +76,11 @@ editPopupForm.addEventListener('submit', handleEditFormSubmit);
 //Функции для формы добавления в галерею
 function openFormForAdd () {
   openPopup(addPopup);
-  placeNameAdd.value = "";
-  linkPlaceAdd.value = "";
+  addPopupForm.reset(); //очистка popup
 
-  validatorNewCard.hideInputError (placeNameAdd, document.querySelector(`#place-name-error`));
-  validatorNewCard.hideInputError (linkPlaceAdd, document.querySelector(`#link-place-error`));
+  //validatorNewCard.hideInputError (placeNameAdd, document.querySelector(`#place-name-error`));
+  //validatorNewCard.hideInputError (linkPlaceAdd, document.querySelector(`#link-place-error`));
+  validatorNewCard.resetErrors();
   validatorNewCard.disableSubmitButton();
 }
 addButtonLink.addEventListener('click', openFormForAdd);
@@ -106,7 +108,6 @@ function createNewCard(event){
   const cardElement = createCard(manuallCardData);
   cardsContainer.prepend(cardElement);
   closeAddPopup();
-  addPopupForm.reset(); //очистка popup вроде
 };
 addPopupForm.addEventListener('submit',createNewCard);
 
@@ -133,7 +134,7 @@ function closeByEsc(evt) {
 popups.forEach((p) => {
   p.addEventListener('click', (evt) => {
     if (evt.target.classList.contains('popup_opened')) {
-      const popup = evt.target.closest('.popup');
+      const popup = evt.target;
       closePopup(popup);
     }
   })
@@ -142,17 +143,8 @@ popups.forEach((p) => {
 
 
 ///////FormValidation
-const validationConfigs = {
-  //formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__submit',
-  inactiveButtonClass: 'popup__submit_inactive',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__message_input-error'
-}
-
-const validatorProfile = new FormValidator(validationConfigs, editPopupForm);
+const validatorProfile = new FormValidator(validationConfig, editPopupForm);
 validatorProfile.enableValidation();
 
-const validatorNewCard = new FormValidator(validationConfigs, addPopupForm);
+const validatorNewCard = new FormValidator(validationConfig, addPopupForm);
 validatorNewCard.enableValidation();

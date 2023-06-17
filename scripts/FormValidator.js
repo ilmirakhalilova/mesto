@@ -1,13 +1,13 @@
 export default class FormValidator {
-  constructor(configs, form) {
+  constructor(config, form) {
     this._form = form;
-    //this._formSelector = configs.formSelector;
-    this._inputSelector = configs.inputSelector;
-    this._submitButtonSelector = configs.submitButtonSelector;
-    this._buttonElement = form.querySelector(configs.submitButtonSelector);
-    this._inactiveButtonClass = configs.inactiveButtonClass;
-    this._inputErrorClass = configs.inputErrorClass;
-    this._errorClass = configs.errorClass;
+    //this._formSelector = config.formSelector;
+    this._inputSelector = config.inputSelector;
+    this._submitButtonSelector = config.submitButtonSelector;
+    this._buttonElement = form.querySelector(config.submitButtonSelector);
+    this._inactiveButtonClass = config.inactiveButtonClass;
+    this._inputErrorClass = config.inputErrorClass;
+    this._errorClass = config.errorClass;
   };
 
   //функция, которая добавляет класс с ошибкой
@@ -18,19 +18,19 @@ export default class FormValidator {
   };
 
   //функция, которая удаляет класс с ошибкой
-  hideInputError = (inputElement, errorElement) => {
+  _hideInputError = (inputElement, errorElement) => {
     inputElement.classList.remove(this._inputErrorClass);
     errorElement.textContent = '';
     errorElement.classList.remove(this._errorClass);
   };
 
-  //функция, которая проверяет валидность поля
-  _isValid(inputElement) {
+  //функция, которая проверяет валидность поля и управляет состоянием ошибки инпута
+  _toggleInputErrorState(inputElement) {
     const errorElement = this._form.querySelector(`#${inputElement.id}-error`);
     if(!inputElement.validity.valid) {
       this._showInputError(inputElement, errorElement, inputElement.validationMessage);
     } else {
-      this.hideInputError(inputElement, errorElement);
+      this._hideInputError(inputElement, errorElement);
     }
   };
 
@@ -55,13 +55,20 @@ export default class FormValidator {
     }
   };
 
+  resetErrors() {
+    this._inputList.forEach((inputElement) => {
+      const errorElement = this._form.querySelector(`#${inputElement.id}-error`);
+      this._hideInputError(inputElement, errorElement);
+    })
+  }
+
   //функция навешивания листенеров всем инпутам внутри формы
   _setEventListeners() {
-    const inputList = Array.from(this._form.querySelectorAll(this._inputSelector));
+    this._inputList = Array.from(this._form.querySelectorAll(this._inputSelector));
     this.toggleButtonState();
-    inputList.forEach((inputElement) => {
+    this._inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', () => {
-        this._isValid(inputElement);
+        this._toggleInputErrorState(inputElement);
         this.toggleButtonState();
       });
     });
