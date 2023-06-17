@@ -1,13 +1,11 @@
 import { openPopup } from "./index.js";
 
 export default class Card{
-  constructor(data, templateSelector) {
+  constructor(data, templateSelector, handleOpenPopup) {
     this._name = data.name;
     this._link = data.link;
     this._templateSelector = templateSelector;
-    this._popupImage = document.querySelector('.popup_image');
-    this._popupImg =  document.querySelector('.popup__image');
-    this._popupImgCaption = document.querySelector('.popup__image-caption');
+    this._handleOpenPopup = handleOpenPopup;
   }
 
   //взятие шаблона карточки
@@ -33,10 +31,7 @@ export default class Card{
 
   //попап большой картинки
   _handleImg() {
-    openPopup(this._popupImage);
-    this._popupImg.src = this._link;
-    this._popupImg.alt = this._name;
-    this._popupImgCaption.textContent = this._name;
+    this._handleOpenPopup(this._name, this._link);
   }
 
   //установка слушателей карточки

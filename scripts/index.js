@@ -31,8 +31,8 @@ const cardsContainer = document.querySelector('.elements');
 
 //Попап на открытие большой картинки
 const popupImage = document.querySelector('.popup_image');
-//const image = document.querySelector('.popup__image');
-//const imageCaption = document.querySelector('.popup__image-caption');
+const image = document.querySelector('.popup__image');
+const imageCaption = document.querySelector('.popup__image-caption');
 const imagePopupCloseButton = popupImage.querySelector('.popup__close_image');
 
 
@@ -55,8 +55,6 @@ function openFormForEdit () {
   nameInput.value = personName.textContent;
   statusInput.value = personStatus.textContent;
   validatorProfile.resetErrors();
-  //validatorProfile.hideInputError(nameInput, document.querySelector(`#name-error`));
-  //validatorProfile.hideInputError(statusInput, document.querySelector(`#status-error`));
 }
 editPopupOpenButton.addEventListener('click', openFormForEdit);
 
@@ -78,8 +76,6 @@ function openFormForAdd () {
   openPopup(addPopup);
   addPopupForm.reset(); //очистка popup
 
-  //validatorNewCard.hideInputError (placeNameAdd, document.querySelector(`#place-name-error`));
-  //validatorNewCard.hideInputError (linkPlaceAdd, document.querySelector(`#link-place-error`));
   validatorNewCard.resetErrors();
   validatorNewCard.disableSubmitButton();
 }
@@ -93,8 +89,21 @@ addPopupCloseButton.addEventListener('click', closeAddPopup);
 
 
 ///////новые карточки
+
+//функция открытия попапа с большой картинкой (вне класса Card), передается аргументом в конструктор Card
+function handleOpenPopup(name, link) {
+  const popupImg = document.querySelector('.popup_image');
+
+  //image и imageCaption определены выше в блоке переменных "Попап на открытие большой картинки"
+  image.src = link;
+  imageCaption.alt = name;
+  imageCaption.textContent = name;
+
+  openPopup(popupImg);
+}
+
 const createCard = item => {
-  const card = new Card(item, '.elements__card-template');
+  const card = new Card(item, '.elements__card-template', handleOpenPopup);
   return card.generateCard();
 }
 
