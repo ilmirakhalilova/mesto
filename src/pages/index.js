@@ -1,10 +1,10 @@
-import Card from './Card.js';
-import {initialCards, validationConfig} from './constants.js';
-import FormValidator from './FormValidator.js';
-import PopupWithImage from './PopupWithImage.js';
-import PopupWithForm from './PopupWithForm.js';
-import UserInfo from './UserInfo.js';
-import Section from './Section.js';
+import Card from '../components/Card.js';
+import {initialCards, validationConfig} from '../components/constants.js';
+import FormValidator from '../components/FormValidator.js';
+import PopupWithImage from '../components/PopupWithImage.js';
+import PopupWithForm from '../components/PopupWithForm.js';
+import UserInfo from '../components/UserInfo.js';
+import Section from '../components/Section.js';
 
 //ПЕРЕМЕННЫЕ
 //Попап редактирование профиля
@@ -28,6 +28,7 @@ popupProfile.setEventListeners();
 editPopupOpenButton.addEventListener('click', () => {
   popupProfile.setInputValues(userInfo.getUserInfo());
   popupProfile.open();
+  validatorProfile.resetErrors();
 });
 
 //Попап добавления новой карточки
@@ -43,6 +44,7 @@ popupAddCard.setEventListeners();
 //открытие попапа для добавления новой карточки (+)
 addButtonLink.addEventListener('click', () => {
   popupAddCard.open();
+  validatorNewCard.resetErrors();
 });
 
 //Галерея карточек
