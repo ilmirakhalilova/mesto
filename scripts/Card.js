@@ -1,11 +1,9 @@
-import { openPopup } from "./index.js";
-
 export default class Card{
-  constructor(data, templateSelector, handleOpenPopup) {
+  constructor(data, templateSelector, handleCardClick) {
     this._name = data.name;
     this._link = data.link;
     this._templateSelector = templateSelector;
-    this._handleOpenPopup = handleOpenPopup;
+    this._handleCardClick = handleCardClick;
   }
 
   //взятие шаблона карточки
@@ -31,7 +29,7 @@ export default class Card{
 
   //попап большой картинки
   _handleImg() {
-    this._handleOpenPopup(this._name, this._link);
+    this._handleCardClick(this._name, this._link);
   }
 
   //установка слушателей карточки

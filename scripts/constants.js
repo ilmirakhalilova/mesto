@@ -35,3 +35,8 @@ export const initialCards = [
     inputErrorClass: 'popup__input_type_error',
     errorClass: 'popup__message_input-error'
   }
+
+  //для класса PopupWithImage
+  export const selectorPopupImage = '.popup__image';
+  export const selectorPopupImageCaption = '.popup__image-caption';
+  
