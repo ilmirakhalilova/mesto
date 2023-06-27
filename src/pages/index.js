@@ -1,13 +1,12 @@
-import Card from './components/Card.js';
-import {initialCards, validationConfig} from './components/constants.js';
-import FormValidator from './components/FormValidator.js';
-import PopupWithImage from './components/PopupWithImage.js';
-import PopupWithForm from './components/PopupWithForm.js';
-import UserInfo from './components/UserInfo.js';
-import Section from './components/Section.js';
-import './pages/index.css'; //импорт главного файла стилей 
+import Card from '../components/Card.js';
+import {initialCards, validationConfig} from '../components/constants.js';
+import FormValidator from '../components/FormValidator.js';
+import PopupWithImage from '../components/PopupWithImage.js';
+import PopupWithForm from '../components/PopupWithForm.js';
+import UserInfo from '../components/UserInfo.js';
+import Section from '../components/Section.js';
+import './index.css'; //импорт главного файла стилей 
 
-//ПЕРЕМЕННЫЕ
 //Попап редактирование профиля
 const editPopup = document.querySelector('.popup_edit');
 const editPopupForm = editPopup.querySelector('.popup__form');
@@ -18,6 +17,13 @@ const addPopupForm = addPopup.querySelector('.popup__form');
 const addButtonLink = document.querySelector('.profile__add-button');
 
 const userInfo = new UserInfo({selectorUserName: '.profile__name', selectorUserStatus: '.profile__status'});
+
+function createCard(item) {
+  const card = new Card(item, '.elements__card-template', () => {
+    popupImage.open(item.name, item.link);
+  });
+  return card.generateCard();
+};
 
 //Попап редактирования профиля
 const popupProfile = new PopupWithForm('.popup_edit', editPopupForm, (data) => {
@@ -34,11 +40,7 @@ editPopupOpenButton.addEventListener('click', () => {
 
 //Попап добавления новой карточки
 const popupAddCard = new PopupWithForm('.popup_add', addPopupForm, (data) => {
-  const card = new Card({name: data['place-name'], link: data['link-place']}, '.elements__card-template', () => { //{name: data.place-name, link: data.link-place}
-    popupImage.open(data['place-name'], data['link-place']);
-  });
-  const cardElement = card.generateCard();
-  cardList.addItem(cardElement);
+  cardList.addItem(createCard({name: data['place-name'], link: data['link-place']}));
   popupAddCard.close();
 });
 popupAddCard.setEventListeners();
@@ -50,11 +52,7 @@ addButtonLink.addEventListener('click', () => {
 
 //Галерея карточек
 const cardList = new Section({items: initialCards, renderer: (item) => {
-  const card = new Card(item, '.elements__card-template', () => {
-    popupImage.open(item.name, item.link);
-  });
-  const cardElement = card.generateCard();
-  cardList.addItem(cardElement);
+  cardList.addItem(createCard(item));
 }}, '.elements');
 //отрисовка карточек
 cardList.renderItems();
