@@ -27,7 +27,9 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
   //профиль
   userInfo.setUserInfo(infoUser);
   //отрисовка карточек
-  cardList.renderItems(cards.reverse());
+  cards.forEach(item => {
+    cardList.addItems(createCard(item));
+  });
 })
 .catch((err) => {
   console.log(err); // выведем ошибку в консоль
@@ -124,6 +126,7 @@ popupProfile.setEventListeners();
 editPopupOpenButton.addEventListener('click', () => {
   popupProfile.setInputValues(userInfo.getUserInfo());
   popupProfile.open();
+  validatorProfile.disableSubmitButton();
   validatorProfile.resetErrors();
 });
 
@@ -148,6 +151,7 @@ const popupChangeAvatar = new PopupWithForm('.popup_update-avatar', changeAvatar
 popupChangeAvatar.setEventListeners();
 changeAvatarPopupButton.addEventListener('click', () => {
   popupChangeAvatar.open();
+  validatorAvatar.disableSubmitButton();
   validatorAvatar.resetErrors();
 })
 
@@ -174,6 +178,7 @@ popupAddCard.setEventListeners();
 //открытие попапа для добавления новой карточки (+)
 addButtonLink.addEventListener('click', () => {
   popupAddCard.open();
+  validatorNewCard.disableSubmitButton();
   validatorNewCard.resetErrors();
 });
 
