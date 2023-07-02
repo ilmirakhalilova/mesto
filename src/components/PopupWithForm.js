@@ -6,6 +6,8 @@ export default class PopupWithForm extends Popup {
     this._popupForm = form;
     this._inputList = Array.from(form.querySelectorAll('.popup__input'));
     this._submitCallback = submitCallback;
+    this._popupSubmit = this._popupForm.querySelector('.popup__submit');
+    this._popupSubmitText = this._popupSubmit.textContent;
   }
 
   //Метод собирает массив всех полей в форме, обходит их и добавляет их значения в объект
@@ -40,5 +42,14 @@ export default class PopupWithForm extends Popup {
     this._inputList.forEach(input => {
       input.value = data[input.name];
     })
+  }
+
+  renderLoading(isSaving) {
+    if(isSaving) {
+      this._popupSubmit.textContent = "Сохранение...";
+    } else {
+      this._popupSubmit.textContent = this._popupSubmitText;
+    }
+
   }
 }

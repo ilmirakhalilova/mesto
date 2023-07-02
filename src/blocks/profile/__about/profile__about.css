@@ -1,4 +1,4 @@
-.profile__status{
+.profile__about{
   font-weight: 400;
   font-size: 18px;
   line-height: 22px;
@@ -10,7 +10,7 @@
   max-width: 336px;
 }
 @media (max-width: 768px){
-  .profile__status{
+  .profile__about{
     font-size: 14px;
     line-height: 17px;
     text-align: center;
